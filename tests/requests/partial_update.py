@@ -5,7 +5,7 @@ from src.constants.api_constants import payload_path, schema_path
 from src.constants.api_constants import update_delete_get_single_booking
 
 
-def partial_update_booking_patch(token, booking_id):
+def partial_update(token, booking_id):
     url = update_delete_get_single_booking(booking_id)
     cookie = "token=" + str(token)
     headers = {"Content-Type": "application/json",
