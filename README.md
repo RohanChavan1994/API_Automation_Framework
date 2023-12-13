@@ -8,7 +8,7 @@ Hybrid Custom Framework to test the REST APIs
 3. PyTest - Testing Framework
 4. Reporting - Allure Report, PyTest HTML
 5. Test Data - CSV, Excel, JSON
-6. Parallel Execution - xdistribute
+6. Parallel Execution - pytest-xdist
 
 ### Install packages
 ```
@@ -25,3 +25,7 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
+### Parallel execution
+```
+pip install pytest-xdist
+```
