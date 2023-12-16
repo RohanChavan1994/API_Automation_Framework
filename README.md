@@ -29,3 +29,8 @@ pip install -r requirements.txt
 ```
 pip install pytest-xdist
 ```
+
+### Work with Excel files
+```
+pip install openpyxl
+```
