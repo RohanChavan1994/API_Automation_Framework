@@ -17,8 +17,8 @@ pipeline {
                 bat 'python -m pip install -r requirements.txt'
                 bat 'python -m pytest -n auto .\\tests\\parallel\\test_full_crud_single2.py --html=report.html --alluredir=reports'
 
-                allure includeProperties: false, jdk: '', report: 'reports', results: [[path: 'reports']]
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'report.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                allure report: 'reports', results: [[path: 'reports']]
+                publishHTML([reportDir: '', reportFiles: 'report.html', reportName: 'HTML Report'])
             }
         }
     }
