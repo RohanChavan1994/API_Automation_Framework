@@ -34,3 +34,8 @@ pip install pytest-xdist
 ```
 pip install openpyxl
 ```
+
+### JSON Schema validation
+```
+pip install jsonschema
+```
