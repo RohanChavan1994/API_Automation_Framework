@@ -29,7 +29,7 @@ pipeline {
             script {
                 def buildStatus = currentBuild.result ?: 'SUCCESS'
                 def subject = "Jenkins Build ${buildStatus}"
-                def report_path = "C:\\ProgramData\\Jenkins\\.jenkins\\jobs\\Pipeline - API Automation\\htmlreports\\HTML_20Report\\report.html"
+                def report_path = "C:\\ProgramData\\Jenkins\\.jenkins\\jobs\\Pipeline-API-Automation\\htmlreports\\HTML_20Report\\report.html"
 
                 // Zip the HTML report
                 bat 'powershell Compress-Archive -Path report_path -DestinationPath report.zip'
