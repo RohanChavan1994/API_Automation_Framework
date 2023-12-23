@@ -19,19 +19,20 @@ pipeline {
 
                 allure includeProperties: false, jdk: '', results: [[path: 'reports']]
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'report.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
-            }
-            script {
-                def buildStatus = currentBuild.result ?: 'SUCCESS'
-                def subject = "Jenkins Build ${buildStatus}"
 
-                // Zip the HTML report
-                bat 'powershell Compress-Archive -Force -Path C:\\ProgramData\\Jenkins\\.jenkins\\jobs\\Pipeline-API-Automation\\htmlreports\\HTML_20Report\\report.html -DestinationPath report.zip'
+                script {
+                    def buildStatus = currentBuild.result ?: 'SUCCESS'
+                    def subject = "Jenkins Build ${buildStatus}"
 
-                // Email notification after the build completes
-                emailext subject: subject,
-                    body: "Your Jenkins build has ${buildStatus.toLowerCase()}. Check the build status!",
-                    to: 'ka22ej3777@gmail.com',
-                    attachmentsPattern: '**/*.zip'
+                    // Zip the HTML report
+                    bat 'powershell Compress-Archive -Force -Path C:\\ProgramData\\Jenkins\\.jenkins\\jobs\\Pipeline-API-Automation\\htmlreports\\HTML_20Report\\report.html -DestinationPath report.zip'
+
+                    // Email notification after the build completes
+                    emailext subject: subject,
+                        body: "Your Jenkins build has ${buildStatus.toLowerCase()}. Check the build status!",
+                        to: 'ka22ej3777@gmail.com',
+                        attachmentsPattern: '**/*.zip'
+                }
             }
         }
     }
