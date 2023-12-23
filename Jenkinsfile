@@ -36,7 +36,7 @@ pipeline {
                 // Email notification after the build completes
                 emailext subject: subject,
                     body: "Your Jenkins build has ${buildStatus.toLowerCase()}. Check the build status!",
-                    to: 'rohanforjobs@gmail.com',
+                    to: 'ka22ej3777@gmail.com',
                     attachmentsPattern: '**/*.zip'
             }
         }
