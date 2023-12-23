@@ -31,7 +31,7 @@ pipeline {
                 def subject = "Jenkins Build ${buildStatus}"
 
                 // Zip the HTML report
-                bat 'powershell Compress-Archive -Path .\\htmlreports\\HTML_20Report\\*.html -DestinationPath report.zip'
+                bat 'powershell Compress-Archive -Path .\\htmlreports\\* -DestinationPath report.zip'
 
                 // Email notification after the build completes
                 emailext subject: subject,
