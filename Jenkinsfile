@@ -20,12 +20,6 @@ pipeline {
                 allure includeProperties: false, jdk: '', results: [[path: 'reports']]
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'report.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
             }
-        }
-    }
-
-    post {
-        always {
-            // Determine build status
             script {
                 def buildStatus = currentBuild.result ?: 'SUCCESS'
                 def subject = "Jenkins Build ${buildStatus}"
