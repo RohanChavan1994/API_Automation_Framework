@@ -21,17 +21,19 @@ pipeline {
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'report.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
 
                 // Determine build status
-                def buildStatus = currentBuild.result ?: 'SUCCESS'
-                def subject = "Jenkins Build ${buildStatus}"
+                script {
+                    def buildStatus = currentBuild.result ?: 'SUCCESS'
+                    def subject = "Jenkins Build ${buildStatus}"
 
-                // Zip the HTML report
-                bat 'powershell Compress-Archive -Path .\\report\\*.html -DestinationPath report.zip'
+                    // Zip the HTML report
+                    bat 'powershell Compress-Archive -Path .\\report\\*.html -DestinationPath report.zip'
 
-                // Email notification after the build completes
-                emailext subject: subject,
-                    body: "Your Jenkins build has ${buildStatus.toLowerCase()}. Check the build status!",
-                    to: 'rohanforjobs@gmail.com',
-                    attachmentsPattern: '**/*.zip'
+                    // Email notification after the build completes
+                    emailext subject: subject,
+                        body: "Your Jenkins build has ${buildStatus.toLowerCase()}. Check the build status!",
+                        to: 'rohanforjobs@gmail.com',
+                        attachmentsPattern: '**/*.zip'
+                }
             }
         }
     }
