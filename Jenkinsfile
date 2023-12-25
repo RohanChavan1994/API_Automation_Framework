@@ -9,8 +9,10 @@ pipeline {
         }
 
         stage('Run Tests') {
+            environment {
+                pythonHome = tool name: 'Python3', type: 'hudson.plugins.python.PythonInstallation'
+            }
             steps {
-                def pythonHome = tool 'Python3'
                 // Run commands using the Python path and pip
                 sh "${pythonHome}/bin/python -m pip install -r requirements.txt"
                 sh 'python -m pytest -n auto .\\tests\\parallel\\test_full_crud_single2.py --html=report.html --alluredir=reports'
