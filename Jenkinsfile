@@ -10,8 +10,9 @@ pipeline {
 
         stage('Run Tests') {
             steps {
+                def pythonHome = tool 'Python3'
                 // Run commands using the Python path and pip
-                sh 'python -m pip install -r requirements.txt'
+                sh "${pythonHome}/bin/python -m pip install -r requirements.txt"
                 sh 'python -m pytest -n auto .\\tests\\parallel\\test_full_crud_single2.py --html=report.html --alluredir=reports'
 
                 allure includeProperties: false, jdk: '', results: [[path: 'reports']]
