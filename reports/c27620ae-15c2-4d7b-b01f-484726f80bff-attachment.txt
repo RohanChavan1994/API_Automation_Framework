@@ -1,0 +1,3 @@
+{'token': 'dd061cad534b925'}
+{'bookingid': 1432, 'booking': {'firstname': 'James', 'lastname': 'Bond', 'totalprice': 250, 'depositpaid': True, 'bookingdates': {'checkin': '2023-12-22', 'checkout': '2023-12-27'}, 'additionalneeds': 'Breakfast'}}
+{'firstname': 'Vesper', 'lastname': 'Lynd', 'totalprice': 400, 'depositpaid': True, 'bookingdates': {'checkin': '2023-12-22', 'checkout': '2024-01-02'}, 'additionalneeds': 'Breakfast, Lunch, Dinner'}
