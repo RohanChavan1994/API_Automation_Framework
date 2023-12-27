@@ -19,7 +19,7 @@ before_script:
 
 test:
   script:
-    - pytest -n auto .\tests\parallel\test_full_crud_single2.py --html=.\html_report\report.html --alluredir=reports
+    - pytest -n auto tests/parallel/test_full_crud_single2.py --html=html_report/report.html --alluredir=reports
   artifacts:
     paths:
       - html_report/*
