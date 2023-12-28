@@ -25,7 +25,7 @@ running test:
     - virtualenv venv
     - source venv/bin/activate
     - pip install -r requirements.txt
-    - pytest -n auto tests/parallel/test_full_crud_single2.py --html=html_report/report.html --alluredir=reports
+    - pytest -n auto tests/parallel/test_full_crud_single2.py --html=html_report/report.html --alluredir=allure_reports
   artifacts:
     paths:
       - html_report
@@ -39,5 +39,5 @@ deploy results to s3:
   script:
     - aws --version
     - pwd
-    - aws s3 sync html_report s3://$S3_BUCKET_NAME/ --delete
-    - aws s3 sync reports s3://$S3_BUCKET_NAME/ --delete
+    - aws s3 sync html_report s3://$S3_BUCKET_NAME/html_report/ --delete
+    - aws s3 sync reports s3://$S3_BUCKET_NAME/allure_reports/ --delete
