@@ -19,28 +19,30 @@ pipeline {
 
                 allure includeProperties: false, jdk: '', results: [[path: 'reports']]
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'html_report', reportFiles: 'report.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
-
-                script {
-                    // Define the paths to be compressed
-                    def path1 = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Pipeline-API-Automation\\allure-report"
-                    def path2 = "C:\\ProgramData\\Jenkins\\.jenkins\\jobs\\Pipeline-API-Automation\\htmlreports"
-
-                    // Combine paths into a single comma-separated string
-                    def combinedPaths = "\"${path1}\",\"${path2}\""
-
-                    // Compress-Archive using the combined paths
-                    bat "powershell Compress-Archive -Force -Path ${combinedPaths} -DestinationPath reports.zip"
-
-                    def buildStatus = currentBuild.result ?: 'SUCCESS'
-                    def subject = "Jenkins Build ${buildStatus}"
-
-                    // Email notification after the build completes
-                    emailext subject: subject,
-                        body: "Your Jenkins build has ${buildStatus.toLowerCase()}. Check the build status!",
-                        to: 'jenkinsemailsetup@gmail.com',
-                        attachmentsPattern: '**/reports.zip'
-                }
             }
+        }
+    }
+
+    post {
+        always {
+            // Define the paths to be compressed
+            def path1 = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Pipeline-API-Automation\\allure-report"
+            def path2 = "C:\\ProgramData\\Jenkins\\.jenkins\\jobs\\Pipeline-API-Automation\\htmlreports"
+
+            // Combine paths into a single comma-separated string
+            def combinedPaths = "\"${path1}\",\"${path2}\""
+
+            // Compress-Archive using the combined paths
+            bat "powershell Compress-Archive -Force -Path ${combinedPaths} -DestinationPath reports.zip"
+
+            // Get the build status
+            def buildStatus = currentBuild.result ?: 'SUCCESS'
+
+            // Email notification after the build completes
+            emailext subject: "Jenkins Build ${buildStatus}",
+                body: "Your Jenkins build has ${buildStatus.toLowerCase()}. Check the build status!",
+                to: 'jenkinsemailsetup@gmail.com',
+                attachmentsPattern: '**/reports.zip'
         }
     }
 }
