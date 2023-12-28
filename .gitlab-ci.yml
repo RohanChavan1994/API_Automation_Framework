@@ -29,7 +29,7 @@ running test:
   artifacts:
     paths:
       - html_report
-      - reports
+      - allure_reports
 
 deploy results to s3:
   stage: deploy
