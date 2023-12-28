@@ -26,12 +26,21 @@ running test:
     - source venv/bin/activate
     - pip install -r requirements.txt
     - pytest -n auto tests/parallel/test_full_crud_single2.py --html=html_report/report.html --alluredir=allure_reports
-    - zip -r html_report1.zip html_report
-    - zip -r allure_reports1.zip allure_reports
   artifacts:
     paths:
-      - html_report.zip
-      - allure_reports.zip
+      - html_report
+      - allure_reports
+
+zip artifacts:
+  stage: deploy
+  image: python:3.11
+  script:
+    - apt-get update -qy
+    - apt-get install -y zip
+    - zip -r test_results.zip html_report allure_reports
+  artifacts:
+    paths:
+      - test_results.zip
 
 deploy results to s3:
   stage: deploy
@@ -41,5 +50,4 @@ deploy results to s3:
   script:
     - aws --version
     - pwd
-    - aws s3 sync html_report1.zip s3://rohanautomationresults/html-report/
-    - aws s3 sync allure_reports1.zip s3://rohanautomationresults/allure-reports/
+    - aws s3 sync test_results.zip s3://rohanautomationresults/
