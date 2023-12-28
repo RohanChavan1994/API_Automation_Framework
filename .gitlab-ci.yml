@@ -1,0 +1,44 @@
+stages:
+  - test
+  - deploy
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  S3_BUCKET_NAME: "rohanautomationresults"
+  AWS_DEFAULT_REGION: "ap-south-1"
+  AWS_ACCESS_KEY_ID: "AKIA4HPZVKEZBLTVGXFC" # Ensure this variable is set in GitLab CI/CD settings
+  AWS_SECRET_ACCESS_KEY: "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"
+
+# https://pip.pypa.io/en/stable/topics/caching/
+cache:
+  paths:
+    - .cache/pip
+
+running test:
+  stage: test
+  image: python:3.11
+  script:
+    - python --version ; pip --version  # For debugging
+    - pip install virtualenv
+    - virtualenv venv
+    - source venv/bin/activate
+    - pip install -r requirements.txt
+    - pytest -n auto tests/parallel/test_full_crud_single2.py --html=html_report/report.html --alluredir=allure_reports
+    - apt-get update -qy
+    - apt-get install -y zip
+    - zip -r test_results1.zip html_report allure_reports
+  artifacts:
+    paths:
+      - test_results1.zip
+
+deploy results to s3:
+  stage: deploy
+  image:
+    name: amazon/aws-cli:2.4.11
+    entrypoint: [""]
+  script:
+    - aws --version
+    - pwd
+    - aws s3 cp test_results1.zip s3://rohanautomationresults/
