@@ -35,5 +35,5 @@ deploy results to s3:
   script:
     - aws --version
     - pwd
-    - aws s3 sync html_report/ $AWS_S3_BUCKET --delete
-    - aws s3 sync reports/ $AWS_S3_BUCKET --delete
+    - aws s3 sync html_report/ s3://rohanautomationresults --delete
+    - aws s3 sync reports/ s3://rohanautomationresults --delete
