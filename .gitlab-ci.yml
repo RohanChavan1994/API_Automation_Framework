@@ -28,10 +28,10 @@ running test:
     - pytest -n auto tests/parallel/test_full_crud_single2.py --html=html_report/report.html --alluredir=allure_reports
     - apt-get update -qy
     - apt-get install -y zip
-    - zip -r test_results.zip html_report allure_reports
+    - zip -r test_results1.zip html_report allure_reports
   artifacts:
     paths:
-      - test_results.zip
+      - test_results1.zip
 
 deploy results to s3:
   stage: deploy
@@ -41,4 +41,4 @@ deploy results to s3:
   script:
     - aws --version
     - pwd
-    - aws s3 sync test_results.zip s3://rohanautomationresults/
+    - aws s3 cp test_results1.zip s3://rohanautomationresults/test_results1.zip
