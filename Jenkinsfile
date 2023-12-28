@@ -21,13 +21,18 @@ pipeline {
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'html_report', reportFiles: 'report.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
 
                 script {
-                    def buildStatus = currentBuild.result ?: 'SUCCESS'
-                    println(buildStatus)
-                    def subject = "Jenkins Build ${buildStatus}"
-                    println(subject)
+                    // Define the paths to be compressed
+                    def path1 = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Pipeline-API-Automation\\allure-report"
+                    def path2 = "C:\\ProgramData\\Jenkins\\.jenkins\\jobs\\Pipeline-API-Automation\\htmlreports"
 
-                    // Zip the HTML report
-                    bat 'powershell Compress-Archive -Force -Path C:\\ProgramData\\Jenkins\\.jenkins\\jobs\\Pipeline-API-Automation\\htmlreports\\HTML_20Report\\report.html -DestinationPath report.zip'
+                    // Combine paths into a single comma-separated string
+                    def combinedPaths = "\"${path1}\",\"${path2}\""
+
+                    // Compress-Archive using the combined paths
+                    bat "powershell Compress-Archive -Force -Path ${combinedPaths} -DestinationPath reports.zip"
+
+                    def buildStatus = currentBuild.result ?: 'SUCCESS'
+                    def subject = "Jenkins Build ${buildStatus}"
 
                     // Email notification after the build completes
                     emailext subject: subject,
