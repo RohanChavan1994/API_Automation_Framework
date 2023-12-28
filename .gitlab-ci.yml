@@ -39,5 +39,5 @@ deploy results to s3:
   script:
     - aws --version
     - pwd
-    - aws s3 sync html_report s3://$S3_BUCKET_NAME/html_report/
-    - aws s3 sync allure_reports s3://$S3_BUCKET_NAME/allure_reports/
+    - aws s3 sync html_report s3://rohanautomationresults/html_report/
+    - aws s3 sync allure_reports s3://rohanautomationresults/allure_reports/
