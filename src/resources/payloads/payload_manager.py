@@ -33,3 +33,39 @@ def create_booking_payload_dynamic():
     }
 
     return payload
+
+
+def token_payload():
+    payload = {
+        "username": "admin",
+        "password": "password123"
+    }
+
+    return payload
+
+
+def partial_update_payload():
+    payload = {
+      "firstname": "Felix",
+      "lastname": "Leiter",
+      "additionalneeds": "Dinner"
+    }
+
+    return payload
+
+
+def full_update_payload():
+    payload = {
+      "firstname": "Vesper",
+      "lastname": "Lynd",
+      "totalprice": 400,
+      "depositpaid": True,
+      "bookingdates": {
+        "checkin": "2023-12-22",
+        "checkout": "2024-1-2"
+      },
+      "additionalneeds": "Breakfast, Lunch, Dinner"
+    }
+
+    return payload
+
