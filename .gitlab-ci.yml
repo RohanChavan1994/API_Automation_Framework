@@ -6,6 +6,10 @@ stages:
 # only cache local items.
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  S3_BUCKET_NAME: "rohanautomationresults"
+  AWS_DEFAULT_REGION: "ap-south-1"
+  AWS_ACCESS_KEY_ID: "$AWS_ACCESS_KEY_ID" # Ensure this variable is set in GitLab CI/CD settings
+  AWS_SECRET_ACCESS_KEY: "$AWS_SECRET_ACCESS_KEY"
 
 # https://pip.pypa.io/en/stable/topics/caching/
 cache:
@@ -24,8 +28,8 @@ running test:
     - pytest -n auto tests/parallel/test_full_crud_single2.py --html=html_report/report.html --alluredir=reports
   artifacts:
     paths:
-      - html_report/
-      - reports/
+      - html_report/*
+      - reports/*
 
 deploy results to s3:
   stage: deploy
@@ -35,5 +39,5 @@ deploy results to s3:
   script:
     - aws --version
     - pwd
-    - aws s3 sync html_report/ s3://rohanautomationresults --delete
-    - aws s3 sync reports/ s3://rohanautomationresults --delete
+    - aws s3 sync html_report/ s3://$S3_BUCKET_NAME/ --delete
+    - aws s3 sync reports/ s3://$S3_BUCKET_NAME/ --delete
