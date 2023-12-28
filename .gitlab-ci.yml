@@ -6,10 +6,10 @@ stages:
 # only cache local items.
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-  S3_BUCKET_NAME: "rohanautomationresults"
-  AWS_DEFAULT_REGION: "ap-south-1"
-  AWS_ACCESS_KEY_ID: "AKIA4HPZVKEZBLTVGXFC" # Ensure this variable is set in GitLab CI/CD settings
-  AWS_SECRET_ACCESS_KEY: "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"
+  S3_BUCKET_NAME: "$S3_BUCKET_NAME"
+  AWS_DEFAULT_REGION: "$AWS_DEFAULT_REGION"
+  AWS_ACCESS_KEY_ID: "$AWS_ACCESS_KEY_ID" # Ensure this variable is set in GitLab CI/CD settings
+  AWS_SECRET_ACCESS_KEY: "$AWS_SECRET_ACCESS_KEY" # Ensure this variable is set in GitLab CI/CD settings
 
 # https://pip.pypa.io/en/stable/topics/caching/
 cache:
@@ -28,10 +28,10 @@ running test:
     - pytest -n auto tests/parallel/test_full_crud_single2.py --html=html_report/report.html --alluredir=allure_reports
     - apt-get update -qy
     - apt-get install -y zip
-    - zip -r test_results1.zip html_report allure_reports
+    - zip -r test_results2.zip html_report allure_reports
   artifacts:
     paths:
-      - test_results1.zip
+      - test_results2.zip
 
 deploy results to s3:
   stage: deploy
@@ -41,4 +41,4 @@ deploy results to s3:
   script:
     - aws --version
     - pwd
-    - aws s3 cp test_results1.zip s3://rohanautomationresults/
+    - aws s3 cp test_results2.zip s3://$S3_BUCKET_NAME/
