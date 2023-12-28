@@ -18,8 +18,8 @@ def test_partial_update_booking_patch(partial_update_booking_patch):
     partial_update_booking_patch
 
 
-def test_full_update_booking_put(full_update_booking_put):
-    full_update_booking_put
+def test_full_update_booking_put(full_update_booking_put1):
+    full_update_booking_put1
 
 
 def test_delete_booking_delete(delete_booking_delete):
