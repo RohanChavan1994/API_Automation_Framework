@@ -1,3 +1,7 @@
+stages:
+  - build
+  - test
+
 image: python:3.11
 
 # Change pip's cache directory to be inside the project directory since we can
@@ -15,9 +19,14 @@ before_script:
   - pip install virtualenv
   - virtualenv venv
   - source venv/bin/activate
-  - pip install -r requirements.txt
+
+build:
+  stage: build
+  script:
+    - pip install -r requirements.txt
 
 test:
+  stage: test
   script:
     - pytest -n auto tests/parallel/test_full_crud_single2.py --html=html_report/report.html --alluredir=reports
   artifacts:
