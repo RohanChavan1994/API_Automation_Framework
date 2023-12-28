@@ -19,15 +19,13 @@ pipeline {
 
                 allure includeProperties: false, jdk: '', results: [[path: 'reports']]
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'html_report', reportFiles: 'report.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
-
-                // Move the following code into the post section
             }
         }
     }
 
     post {
         always {
-            steps {
+            script {
                 // Define the paths to be compressed
                 def path1 = "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Pipeline-API-Automation\\allure-report"
                 def path2 = "C:\\ProgramData\\Jenkins\\.jenkins\\jobs\\Pipeline-API-Automation\\htmlreports"
