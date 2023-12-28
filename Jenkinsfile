@@ -19,6 +19,8 @@ pipeline {
 
                 allure includeProperties: false, jdk: '', results: [[path: 'reports']]
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'html_report', reportFiles: 'report.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+
+                // Move the following code into the post section
             }
         }
     }
