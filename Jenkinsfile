@@ -32,16 +32,16 @@ pipeline {
                     bat "powershell Compress-Archive -Force -Path ${combinedPaths} -DestinationPath reports.zip"
 
                     // Define the path to the specific ZIP file to be attached
-                    def attachment = "${env.WORKSPACE}\\reports.zip"
+                    // def attachment = "${env.WORKSPACE}\\reports.zip"
 
                     def buildStatus = currentBuild.result ?: 'SUCCESS'
                     def subject = "Jenkins Build ${buildStatus}"
 
                     // Email notification after the build completes
-                    emailext subject: subject,
+                    mail to: 'jenkinsemailsetup@gmail.com',
+                        subject: subject,
                         body: "Your Jenkins build has ${buildStatus.toLowerCase()}. Check the build status!",
-                        to: 'jenkinsemailsetup@gmail.com',
-                        attachments: attachment
+                        attachments: "reports.zip"
                 }
             }
         }
