@@ -13,7 +13,7 @@ def create_booking_post():
     headers = {"Content-Type": "application/json",
                "Accept": "application/json"}
     payload = create_booking_payload()
-
+	#################################################
     # Send POST request
     post_response = requests.post(url=url, headers=headers, json=payload)
     print(post_response.json())
